@@ -1,0 +1,21 @@
+move_backups:
+  alias: Move backups
+  sequence:
+  - action: shell_command.move_backup
+    metadata: {}
+    data: {}
+  description: ''
+ask_to_create_reminder:
+  alias: Ask to Create Reminder
+  sequence:
+  - data:
+      title: Create a Reminder?
+      message: Would you like to create a reminder?
+      data:
+        actions:
+        - action: create_reminder
+          title: Yes, create reminder
+        - action: dismiss
+          title: No, dismiss
+    action: notify.mobile_app_pixel_8
+  description: ''

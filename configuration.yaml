@@ -1,0 +1,148 @@
+default_config:
+
+# Load frontend themes from the themes folder
+frontend:
+  themes: !include_dir_merge_named themes
+
+automation: !include automations.yaml
+script: !include scripts.yaml
+scene: !include scenes.yaml
+
+switch:
+  - platform: template
+    switches:
+      xbox:
+        friendly_name: "Xbox Switch"
+        value_template: "{{ is_state('light.xbox', 'on') }}"
+        turn_on:
+          service: light.turn_on
+          target:
+            entity_id: light.xbox
+        turn_off:
+          service: light.turn_off
+          target:
+            entity_id: light.xbox
+
+      livingroom_tv:
+        friendly_name: "Living Room TV"
+        value_template: "{{ is_state('light.livingroom_tv', 'on') }}"
+        turn_on:
+          service: light.turn_on
+          target:
+            entity_id: light.livingroom_tv
+        turn_off:
+          service: light.turn_off
+          target:
+            entity_id: light.livingroom_tv
+
+      firestick:
+        friendly_name: "Firestick"
+        value_template: "{{ is_state('light.firestick', 'on') }}"
+        turn_on:
+          service: light.turn_on
+          target:
+            entity_id: light.firestick
+        turn_off:
+          service: light.turn_off
+          target:
+            entity_id: light.firestick
+
+      google_mini:
+        friendly_name: "Google Mini"
+        value_template: "{{ is_state('light.google_mini', 'on') }}"
+        turn_on:
+          service: light.turn_on
+          target:
+            entity_id: light.google_mini
+        turn_off:
+          service: light.turn_off
+          target:
+            entity_id: light.google_mini
+
+      nintendo_switch:
+        friendly_name: "Nintendo Switch"
+        value_template: "{{ is_state('light.nintendo_switch', 'on') }}"
+        turn_on:
+          service: light.turn_on
+          target:
+            entity_id: light.nintendo_switch
+        turn_off:
+          service: light.turn_off
+          target:
+            entity_id: light.nintendo_switch
+            
+sensor:
+  - platform: template
+    sensors:
+      dummy_entity:
+        friendly_name: "Dummy Entity"
+        value_template: "{{ '' }}"  
+  - platform: bitcoin
+    display_options:
+      - exchangerate
+      - trade_volume_btc
+      
+      
+input_text:
+  record_filename:
+    name: "Filename"
+  record_channel:
+    name: "Channel Number"
+  end_after:
+    name: "End After"
+
+input_number:
+  record_hour:
+    name: "Start Hour"
+    min: 0
+    max: 23
+    step: 1
+    mode: box
+  record_minute:
+    name: "Start Minute"
+    min: 0
+    max: 59
+    step: 1
+    mode: box
+  record_day_of_month:
+    name: "Start Day of Month"
+    min: 1
+    max: 31
+    step: 1
+    mode: box
+
+
+shell_command:
+  record_iptv: >-
+    ssh -i /config/.ssh/id_rsa -o StrictHostKeyChecking=no docker@192.168.4.73 \
+    "/home/docker/record.sh \
+    {{ states('input_number.record_hour') | int }}
+    {{ states('input_number.record_minute') | int }}
+    {{ states('input_number.record_day_of_month') | int }}
+    {{ states('input_text.end_after') }}
+    '{{ states('input_text.record_filename') }}'
+    '{{ states('input_text.record_channel') }}'"
+    
+type: button
+name: "Start IPTV Recording"
+icon: mdi:record-rec
+tap_action:
+  action: call-service
+  service: shell_command.record_iptv
+
+type: entities
+title: IPTV Recording Settings
+entities:
+  - input_text.record_filename
+  - input_text.record_channel
+  - input_number.record_hour
+  - input_number.record_minute
+  - input_number.end_hour_offset
+  - input_number.record_day_of_month
+  - type: button
+    name: "Start Recording"
+    icon: mdi:play
+    tap_action:
+      action: call-service
+      service: shell_command.record_iptv
+      

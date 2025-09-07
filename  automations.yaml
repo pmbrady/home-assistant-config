@@ -1,0 +1,1082 @@
+- id: '1707311857197'
+  alias: Work on
+  description: ''
+  triggers:
+  - at: 08:30:00
+    trigger: time
+  conditions:
+  - condition: time
+    weekday:
+    - fri
+    - thu
+    - wed
+    - tue
+    - mon
+  - condition: state
+    entity_id: person.phil
+    state: home
+  actions:
+  - action: switch.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - switch.monitor
+      - switch.laptop
+  mode: single
+- id: '1707311890177'
+  alias: Work off
+  description: ''
+  triggers:
+  - at: '18:00:00'
+    trigger: time
+  conditions: []
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id:
+      - switch.laptop
+      - switch.monitor
+  mode: single
+- id: '1716909455117'
+  alias: Holiday Downstairs light on
+  description: ''
+  triggers:
+  - at: '21:13:00'
+    trigger: time
+  conditions: []
+  actions:
+  - type: turn_on
+    device_id: 842f7b5f3a3e1eac5fc340287d228fd3
+    entity_id: 7bb1aad6f5b4259e8136dd463da29e2c
+    domain: light
+  mode: single
+- id: '1716909470012'
+  alias: Holiday Downstairs light off
+  description: ''
+  triggers:
+  - at: '23:08:00'
+    trigger: time
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 842f7b5f3a3e1eac5fc340287d228fd3
+    entity_id: 7bb1aad6f5b4259e8136dd463da29e2c
+    domain: light
+  mode: single
+- id: '1716909693590'
+  alias: Holiday bedroom lights off
+  description: ''
+  triggers:
+  - at: '23:25:00'
+    trigger: time
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 2a0de788e66560c4828d5256441a829c
+    entity_id: f138b2e193cd19af7a6898459b097fb7
+    domain: light
+  mode: single
+- id: '1716910094785'
+  alias: Holiday bedroom light on
+  description: ''
+  triggers:
+  - at: '23:10:00'
+    trigger: time
+  conditions: []
+  actions:
+  - type: turn_on
+    device_id: 2a0de788e66560c4828d5256441a829c
+    entity_id: f138b2e193cd19af7a6898459b097fb7
+    domain: light
+  mode: single
+- id: '1716986948187'
+  alias: K lights on
+  description: ''
+  triggers:
+  - type: occupied
+    device_id: 252f917ea7d8a9b145b27754ef62306c
+    entity_id: a9312d4282dbe213f9e4228cae7106c0
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - condition: sun
+    after: sunset
+    after_offset: -00:60:00
+    before: sunrise
+    before_offset: +00:90:00
+  actions:
+  - type: turn_on
+    device_id: 97519c760052d95d0dd69c0f7c489259
+    entity_id: 8e975a0e3949e07f80b6d206bff2427c
+    domain: light
+    brightness_pct: 100
+  - type: turn_on
+    device_id: 860ff7ed576dda321f067cee874fade7
+    entity_id: 291a396a94b39afaf3a7dafd085bb4dc
+    domain: light
+    brightness_pct: 100
+  - type: turn_on
+    device_id: eb2966667fe90f97cec81c27c4fd5fea
+    entity_id: c8896ade5e999b5e59abc2d4fc442517
+    domain: light
+    brightness_pct: 100
+  mode: single
+- id: '1716992272779'
+  alias: K light off
+  description: ''
+  trigger:
+  - type: not_occupied
+    platform: device
+    device_id: 252f917ea7d8a9b145b27754ef62306c
+    entity_id: a9312d4282dbe213f9e4228cae7106c0
+    domain: binary_sensor
+  condition: []
+  action:
+  - type: turn_off
+    device_id: 97519c760052d95d0dd69c0f7c489259
+    entity_id: 8e975a0e3949e07f80b6d206bff2427c
+    domain: light
+  - type: turn_off
+    device_id: 860ff7ed576dda321f067cee874fade7
+    entity_id: 291a396a94b39afaf3a7dafd085bb4dc
+    domain: light
+  - type: turn_off
+    device_id: eb2966667fe90f97cec81c27c4fd5fea
+    entity_id: c8896ade5e999b5e59abc2d4fc442517
+    domain: light
+  mode: single
+- id: '1718648360455'
+  alias: Bathroom lights on PM
+  description: ''
+  triggers:
+  - type: motion
+    device_id: 20ae6c3d75ced13f50c9cc5f1b1c3e94
+    entity_id: d7b3292ef5620059ac3748fb7f5f477c
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - condition: sun
+    after: sunset
+    before_offset: +00:30:00
+  actions:
+  - type: turn_on
+    device_id: b2cc99c8402353abd93ea74fd065d428
+    entity_id: 4a2b3cee19895962bba9e51fa7f04ad0
+    domain: light
+    brightness_pct: 100
+  - type: turn_on
+    device_id: eb9d1c9ee9e96ef7f308f89d8882fe79
+    entity_id: 1a09692a4a4e61ac1894029faaca0610
+    domain: light
+    brightness_pct: 100
+  mode: single
+- id: '1718649134330'
+  alias: Bathroom lights off
+  description: ''
+  trigger:
+  - type: no_motion
+    platform: device
+    device_id: 20ae6c3d75ced13f50c9cc5f1b1c3e94
+    entity_id: d7b3292ef5620059ac3748fb7f5f477c
+    domain: binary_sensor
+  condition: []
+  action:
+  - type: turn_off
+    device_id: b2cc99c8402353abd93ea74fd065d428
+    entity_id: 4a2b3cee19895962bba9e51fa7f04ad0
+    domain: light
+  - type: turn_off
+    device_id: eb9d1c9ee9e96ef7f308f89d8882fe79
+    entity_id: 1a09692a4a4e61ac1894029faaca0610
+    domain: light
+  mode: single
+- id: '1718649885911'
+  alias: 'Bathroom motion battery low '
+  description: ''
+  trigger:
+  - device_id: 5d14b1173aec9c544ed74cee99c5d338
+    domain: zha
+    platform: device
+    type: device_offline
+    subtype: device_offline
+  condition: []
+  action:
+  - service: notify.mobile_app_pixel_8_pro
+    metadata: {}
+    data:
+      message: Bathroom motion battery low
+  - service: todo.add_item
+    metadata: {}
+    data:
+      item: 'Change bathroom motion battery '
+    target:
+      entity_id: todo.tasks
+  mode: single
+- id: '1718827500194'
+  alias: 'Living room no presence '
+  description: ''
+  triggers:
+  - type: not_occupied
+    device_id: 93dbba0a3133a6e0b5cfd7b1e1c344d0
+    entity_id: e1d86dfd2d70e0405e13f8ea7799d221
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+    trigger: device
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: afb67c9660b0a00f15838748991c8a4a
+    entity_id: c5a4bc085d9c6ef5c12ce3157cc132a7
+    domain: light
+  - metadata: {}
+    data: {}
+    target:
+      entity_id: switch.livingroom_tv
+    action: switch.turn_off
+  - metadata: {}
+    data: {}
+    target:
+      entity_id: switch.xbox
+    action: switch.turn_off
+  - metadata: {}
+    data: {}
+    target:
+      entity_id: switch.firestick
+    action: switch.turn_off
+  mode: single
+- id: '1721223018344'
+  alias: Handle Morning Medication Taken
+  description: Handles the action when the Medication Taken notification is clicked
+  trigger:
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: MORNINGMEDICATIONTAKEN
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.morning_medication
+  mode: single
+- id: '1721224423880'
+  alias: Handle Afternoon Eye Drops Taken
+  description: Handles the action when the Medication Taken notification is clicked
+  trigger:
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: AFTERNOONEYEDROPSTAKEN
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.afternoon_eye_drops
+  mode: single
+- id: '1721224628905'
+  alias: Handle Evening Eye Drops Taken
+  description: Handles the action when the Medication Taken notification is clicked
+  trigger:
+  - platform: event
+    event_type: mobile_app_notification_action
+    event_data:
+      action: EVENINGEYEDROPSTAKEN
+  condition: []
+  action:
+  - service: input_boolean.turn_on
+    data: {}
+    target:
+      entity_id: input_boolean.evening_eye_drops
+  mode: single
+- id: '1721225040377'
+  alias: Reset medication helpers
+  description: ''
+  trigger:
+  - at: 06:00:00
+    platform: time
+  condition: []
+  action:
+  - entity_id: input_boolean.morning_medication
+    service: input_boolean.turn_off
+  - entity_id: input_boolean.afternoon_eye_drops
+    service: input_boolean.turn_off
+  - service: input_boolean.turn_off
+    data: {}
+    target:
+      entity_id: input_boolean.evening_eye_drops
+- id: '1721333302871'
+  alias: Phil Home
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: device_tracker.pixel_8
+    to: home
+  action:
+  - service: input_boolean.turn_on
+    target:
+      entity_id: input_boolean.phil_home
+    data: {}
+- id: '1721333413572'
+  alias: ' Phil not Home '
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: device_tracker.pixel_8
+    to: not_home
+  action:
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.phil_home
+    data: {}
+- id: '1721427959004'
+  alias: Evening eye drops
+  description: ''
+  triggers:
+  - hours: '18'
+    minutes: /5
+    seconds: '0'
+    trigger: time_pattern
+  conditions:
+  - condition: state
+    entity_id: input_boolean.evening_eye_drops
+    state: 'off'
+  actions:
+  - data:
+      message: Take eye dtops
+      data:
+        actions:
+        - action: EVENINGEYEDROPSTAKEN
+          title: Medication Taken
+          icon: sfsymbols.bell.slash
+    action: notify.mobile_app_pixel_8
+  mode: single
+- id: '1721428154887'
+  alias: Afternoon eye drops
+  description: ''
+  triggers:
+  - hours: '13'
+    minutes: /5
+    seconds: '0'
+    trigger: time_pattern
+  conditions:
+  - condition: state
+    entity_id: input_boolean.afternoon_eye_drops
+    state: 'off'
+  actions:
+  - data:
+      message: Take eye dtops
+      data:
+        actions:
+        - action: AFTERNOONEYEDROPSTAKEN
+          title: Medication Taken
+          uri: https://www.google.com
+          icon: sfsymbols.bell.slash
+    action: notify.mobile_app_pixel_8
+  mode: single
+- id: trigger_firestick_and_open_plex
+  alias: Trigger Firestick and Open Plex from Input Boolean
+  trigger:
+  - platform: state
+    entity_id: input_boolean.open_plex
+    to: 'on'
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.firestick
+  - wait_for_trigger:
+    - platform: state
+      entity_id: media_player.fire_tv_192_168_4_27
+      to: playing
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.fire_tv_192_168_4_27
+    data:
+      source: Plex
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.open_plex
+  initial_state: true
+  mode: single
+- id: trigger_firestick_and_open_plex
+  alias: Trigger Firestick and Open Plex from Input Boolean
+  description: ''
+  trigger:
+  - platform: state
+    entity_id: input_boolean.open_plex
+    to: 'on'
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.firestick
+  - wait_for_trigger:
+    - platform: state
+      entity_id: media_player.fire_tv_192_168_4_27
+      to: playing
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.fire_tv_192_168_4_27
+    data:
+      source: Plex
+  - service: input_boolean.turn_off
+    target:
+      entity_id: input_boolean.open_plex
+  initial_state: true
+  mode: single
+- id: trigger_firestick_and_open_plex
+  alias: Start Firestick and Open Plex
+  description: Turns on the Firestick, waits for it to be available, and then opens
+    the Plex source
+  trigger:
+  - platform: state
+    entity_id: switch.firestick
+    to: 'on'
+  action:
+  - service: switch.turn_on
+    target:
+      entity_id: switch.firestick
+  - wait_for_trigger:
+    - platform: state
+      entity_id: media_player.fire_tv_192_168_4_27
+      to: idle
+  - service: media_player.select_source
+    target:
+      entity_id: media_player.fire_tv_192_168_4_27
+    data:
+      source: Plex
+  mode: single
+- id: '1722199145971'
+  alias: Start Firestick and Open Plex
+  description: Turns on the Firestick, waits for it to be available, and then opens
+    the Plex source
+  triggers:
+  - entity_id: input_boolean.open_plex
+    to: 'on'
+    from: 'off'
+    trigger: state
+  actions:
+  - target:
+      entity_id: media_player.fire_tv_192_168_4_27
+    data:
+      source: Plex
+    action: media_player.select_source
+  mode: single
+- id: '1722201342262'
+  alias: Reset plex helper
+  description: Reset Plex helper 5 minutes after it has turned on
+  triggers:
+  - entity_id:
+    - input_boolean.open_plex
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+    trigger: state
+    to: 'on'
+  conditions: []
+  actions:
+  - metadata: {}
+    data: {}
+    target:
+      entity_id: input_boolean.open_plex
+    action: input_boolean.turn_off
+  mode: single
+- id: '1722296342946'
+  alias: Set Sensor Detection Sensitivity to Low at Midnight
+  description: This automation sets the sensor detection sensitivity to low at midnight.
+  trigger:
+  - platform: time
+    at: 00:00:00
+  action:
+  - service: select.select_option
+    target:
+      entity_id: select.sensor_detection_sensitivity
+    data:
+      option: low
+- id: '1722296380058'
+  alias: Kitchen sensor medium 5am
+  description: This automation sets the sensor detection sensitivity to low at midnight.
+  trigger:
+  - platform: time
+    at: 05:00:00
+  condition: []
+  action:
+  - service: select.select_option
+    target:
+      entity_id: select.sensor_detection_sensitivity
+    data:
+      option: 'Medium '
+  mode: single
+- id: '1722981444407'
+  alias: Bin Collection Reminder
+  description: ''
+  trigger:
+  - platform: time
+    at: '17:00:00'
+  condition:
+  - condition: time
+    weekday:
+    - tue
+  action:
+  - service: notify.mobile_app_pixel_8
+    data:
+      title: '{{ states(''sensor.bin'') }} bin'
+      message: ''
+  - service: notify.mobile_app_crt_lx1
+    data:
+      title: '{{ states(''sensor.bin'') }} bin'
+      message: ''
+- id: '1724495509104'
+  alias: Nightly Backup
+  description: Create a nightly backup at 2 AM
+  trigger:
+  - platform: time
+    at: 04:00:00
+  action:
+  - data:
+      name: Backup {{ now().strftime('%Y-%m-%d_%H-%M-%S') }}
+    action: hassio.backup_full
+  mode: single
+- id: '1724522548323'
+  alias: Living room light on
+  description: 'Turn the living room light on if TV off. After sunset and new presence
+    detected '
+  trigger:
+  - platform: state
+    entity_id:
+    - binary_sensor.presence_occupancy
+    from: 'off'
+    to: 'on'
+  condition:
+  - condition: state
+    entity_id: light.livingroom_tv
+    state: 'off'
+  - condition: sun
+    after: sunset
+  action:
+  - metadata: {}
+    data:
+      brightness_pct: 100
+    target:
+      device_id:
+      - 842f7b5f3a3e1eac5fc340287d228fd3
+    action: light.turn_on
+  mode: single
+- id: '1724524894335'
+  alias: Turn off bedroom TV if not playing for 30 minutes
+  description: ''
+  triggers:
+  - entity_id:
+    - media_player.fire_tv_192_168_4_77
+    for:
+      hours: 0
+      minutes: 30
+      seconds: 0
+    trigger: state
+    to: idle
+  conditions:
+  - condition: template
+    value_template: '{{ states(''media_player.fire_tv_192_168_4_77'') != ''playing''
+      }}'
+  actions:
+  - action: switch.turn_off
+    data: {}
+    target:
+      entity_id: switch.bedroom_tele
+  mode: single
+- id: '1726681598145'
+  alias: Check TicWatch Battery and Notify
+  description: Check TicWatch Pro 3 GPS battery at 10 PM and notify if below 40%
+  trigger:
+  - platform: time
+    at: '22:00:00'
+  condition:
+  - condition: numeric_state
+    entity_id: sensor.ticwatch_pro_3_gps_battery_level
+    below: 40
+  action:
+  - data:
+      title: TicWatch Battery Low
+      message: Your TicWatch Pro 3 GPS battery is at {{ states('sensor.ticwatch_pro_3_gps_battery_level')
+        }}%. Please charge it.
+    action: notify.mobile_app_pixel_8
+  mode: single
+- id: '1726744327070'
+  alias: Morning Medication
+  description: ''
+  triggers:
+  - hours: '9'
+    minutes: /5
+    seconds: '0'
+    trigger: time_pattern
+  conditions:
+  - condition: state
+    entity_id: input_boolean.morning_medication
+    state: 'off'
+  actions:
+  - data:
+      message: Take medication
+      data:
+        actions:
+        - action: MORNINGMEDICATIONTAKEN
+          title: Medication Taken
+          icon: sfsymbols.bell.slash
+    action: notify.mobile_app_pixel_8
+  mode: single
+- id: '1728637682293'
+  alias: Ticket News
+  description: ''
+  triggers:
+  - at: 08:45:00
+    trigger: time
+  actions:
+  - data:
+      title: Ticket News
+      message: Tap to open the latest Ticket News.
+      data:
+        actions:
+        - action: URI
+          title: Open Ticket News
+          uri: https://www.liverpoolfc.com/news?categoryId=191
+    action: notify.mobile_app_pixel_8
+  mode: single
+- id: '1728681885855'
+  alias: Bathroom lights on AM
+  description: ''
+  triggers:
+  - type: motion
+    device_id: 20ae6c3d75ced13f50c9cc5f1b1c3e94
+    entity_id: d7b3292ef5620059ac3748fb7f5f477c
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - condition: sun
+    before: sunrise
+    after_offset: +00:30:00
+  actions:
+  - type: turn_on
+    device_id: b2cc99c8402353abd93ea74fd065d428
+    entity_id: 4a2b3cee19895962bba9e51fa7f04ad0
+    domain: light
+    brightness_pct: 10
+  - type: turn_on
+    device_id: eb9d1c9ee9e96ef7f308f89d8882fe79
+    entity_id: 1a09692a4a4e61ac1894029faaca0610
+    domain: light
+    brightness_pct: 10
+  mode: single
+- id: '1728841537518'
+  alias: Turn off Arabella tele on a school night
+  description: ''
+  triggers:
+  - at: '21:00:00'
+    trigger: time
+  conditions:
+  - condition: template
+    value_template: "{{ 'School' in state_attr('calendar.school', 'message') and\n
+      \  as_timestamp(state_attr('calendar.school', 'start_time')) | timestamp_custom('%Y-%m-%d')
+      == (now() + timedelta(days=1)).strftime('%Y-%m-%d') }}\n"
+  actions:
+  - target:
+      entity_id: switch.arabella_plug_switch
+    action: switch.turn_off
+    data: {}
+  - type: turn_off
+    device_id: 25a8a14974bfffda0f65c78a65508d4e
+    entity_id: 0d282c6eef2be3e15dd4a82369d0a126
+    domain: switch
+- id: '1728841763475'
+  alias: Turn on Arabella TV on a school night
+  description: Turns on the TV plug when a school event is detected on the calendar.
+  triggers:
+  - at: '15:15:00'
+    trigger: time
+  conditions:
+  - condition: template
+    value_template: '{{ ''School'' in state_attr(''calendar.school'', ''message'')
+      }}'
+  actions:
+  - target:
+      entity_id: switch.arabella_plug_switch
+    action: switch.turn_on
+    data: {}
+  - type: turn_on
+    device_id: 25a8a14974bfffda0f65c78a65508d4e
+    entity_id: 0d282c6eef2be3e15dd4a82369d0a126
+    domain: switch
+- id: '1728990303212'
+  alias: Door bell battery charged
+  description: ''
+  triggers: []
+  conditions:
+  - type: is_battery_level
+    condition: device
+    device_id: a8aeaa65323c4dd8e708b0490a8995f1
+    entity_id: fed352eab970855517556dcbf28547c8
+    domain: sensor
+    above: 99
+  actions:
+  - device_id: fd5f6824702b91adcabe32c05ceb227a
+    domain: mobile_app
+    type: notify
+    message: Door bell battery charged
+  mode: single
+- id: '1729896246880'
+  alias: TV and Fire Stick Sync
+  description: Synchronize the state of the TV and Fire Stick
+  triggers:
+  - entity_id:
+    - switch.livingroom_tv
+    - switch.firestick
+    trigger: state
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: state
+        entity_id: switch.livingroom_tv
+        state: 'on'
+      sequence:
+      - target:
+          entity_id: switch.firestick
+        action: switch.turn_on
+    - conditions:
+      - condition: state
+        entity_id: switch.livingroom_tv
+        state: 'off'
+      sequence:
+      - target:
+          entity_id: switch.firestick
+        action: switch.turn_off
+    - conditions:
+      - condition: state
+        entity_id: switch.firestick
+        state: 'on'
+      sequence:
+      - target:
+          entity_id: switch.livingroom_tv
+        action: switch.turn_on
+    - conditions:
+      - condition: state
+        entity_id: switch.firestick
+        state: 'off'
+      sequence:
+      - target:
+          entity_id: switch.livingroom_tv
+        action: switch.turn_off
+    default: []
+  mode: single
+- id: '1729930660034'
+  alias: Arabella light control
+  description: ''
+  triggers:
+  - event: sunset
+    offset: -00:60:00
+    trigger: sun
+  - event: sunrise
+    offset: 00:60:00
+    trigger: sun
+  conditions: []
+  actions:
+  - choose:
+    - conditions:
+      - condition: trigger
+        id: sunset
+      sequence:
+      - type: turn_on
+        device_id: e44526b23eab41238bcaff3415a4bf8c
+        entity_id: 93424687ec42a8dee6629e0d6b7d7b41
+        domain: light
+    - conditions:
+      - condition: trigger
+        id: sunrise
+      sequence:
+      - type: turn_off
+        device_id: e44526b23eab41238bcaff3415a4bf8c
+        entity_id: 93424687ec42a8dee6629e0d6b7d7b41
+        domain: light
+    default: []
+  mode: single
+- id: '1729938144699'
+  alias: Cupboard light off
+  description: ''
+  triggers:
+  - type: not_opened
+    device_id: 2d25cb8b7ca6177c2cd2c992979cbeb3
+    entity_id: 3e25669839d5b706f48dce81e46103c4
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      area_id: cupboard
+  mode: single
+- id: '1729938211698'
+  alias: Cupboard light on
+  description: ''
+  triggers:
+  - type: opened
+    device_id: 2d25cb8b7ca6177c2cd2c992979cbeb3
+    entity_id: 3e25669839d5b706f48dce81e46103c4
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      area_id: cupboard
+  mode: single
+- id: '1729940876120'
+  alias: Hall lights on
+  description: ''
+  triggers:
+  - type: motion
+    device_id: 5d14b1173aec9c544ed74cee99c5d338
+    entity_id: 132a1198f0ede7ad8cd9ea6babbfde9c
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - condition: sun
+    after: sunset
+    after_offset: -00:60:00
+    before: sunrise
+    before_offset: +00:30:00
+  actions:
+  - type: turn_on
+    device_id: 022cb32bd6a1b64f2fc10b75ea882fff
+    entity_id: 714e0a69cfd202d02cf08c6a52dc23b1
+    domain: light
+    brightness_pct: 10
+  mode: single
+- id: '1729941084874'
+  alias: Hall light off
+  description: ''
+  triggers:
+  - type: no_motion
+    device_id: 5d14b1173aec9c544ed74cee99c5d338
+    entity_id: 132a1198f0ede7ad8cd9ea6babbfde9c
+    domain: binary_sensor
+    trigger: device
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      area_id: hall
+  mode: single
+- id: '1729967543691'
+  alias: Cupboard light 5 minutes
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: 842f7b5f3a3e1eac5fc340287d228fd3
+    entity_id: 7bb1aad6f5b4259e8136dd463da29e2c
+    domain: light
+    trigger: device
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 842f7b5f3a3e1eac5fc340287d228fd3
+    entity_id: 7bb1aad6f5b4259e8136dd463da29e2c
+    domain: light
+  mode: single
+- id: '1731584206286'
+  alias: Start Sonos in Kitchen with YouTube Music Playlist
+  description: Triggers playback of a YouTube Music playlist on Sonos.
+  triggers:
+  - entity_id:
+    - binary_sensor.vy477r34dm_audio_output_in_use
+    trigger: state
+    to: 'off'
+    from: 'on'
+    for:
+      hours: 0
+      minutes: 1
+      seconds: 0
+  - at: 09:00:01
+    trigger: time
+  conditions:
+  - condition: time
+    after: 09:00:00
+    before: '16:30:00'
+  - condition: not
+    conditions:
+    - condition: state
+      entity_id: calendar.family
+      state: leave
+  - condition: state
+    entity_id: input_boolean.phil_home
+    state: 'on'
+  - condition: time
+    weekday:
+    - mon
+    - tue
+    - wed
+    - thu
+    - fri
+  actions:
+  - action: media_player.media_play
+    target:
+      device_id:
+      - 966c0062f743cbb3078c77f73bdfd8e4
+    data: {}
+  - target:
+      device_id: 966c0062f743cbb3078c77f73bdfd8e4
+    data:
+      volume_level: 0.1
+    action: media_player.volume_set
+  mode: single
+- id: '1732269137261'
+  alias: Stop Sonos Playback
+  description: Pauses playback on Sonos.
+  triggers:
+  - entity_id:
+    - binary_sensor.vy477r34dm_audio_output_in_use
+    from: 'off'
+    to: 'on'
+    trigger: state
+    for:
+      hours: 0
+      minutes: 0
+      seconds: 5
+  - type: turned_off
+    device_id: f546144343a5570403e1926942aad6c4
+    entity_id: f36acd0e722e1e53e59faee39ab2c939
+    domain: binary_sensor
+    trigger: device
+  actions:
+  - target:
+      device_id: 966c0062f743cbb3078c77f73bdfd8e4
+    action: media_player.media_pause
+    data: {}
+  mode: single
+- id: '1736581964197'
+  alias: Low Battery notifications
+  description: ''
+  use_blueprint:
+    path: gist.githubusercontent.com/low-battery-level-detection-notification-for-all-battery-sensors.yaml
+    input:
+      time: 07:55:00
+      actions:
+      - action: notify.mobile_app_pixel_8
+        metadata: {}
+        data:
+          title: 'Low battery '
+      threshold: 20
+- id: '1738090711038'
+  alias: Turn on downstairs bathroom light
+  description: ''
+  triggers:
+  - type: opened
+    device_id: d300213685429469983423614e99ee6e
+    entity_id: 7e09cb3cf1ff995ad8fffa0f1de9da7e
+    domain: binary_sensor
+    trigger: device
+  conditions:
+  - condition: sun
+    before: sunrise
+    after: sunset
+    before_offset: '0.90'
+    after_offset: '0.60'
+  actions:
+  - type: turn_on
+    device_id: 69a88b0ebecee09972bfdede51455d84
+    entity_id: 1a9e974489f0d9108e5a13e63c2a1d68
+    domain: switch
+  mode: single
+- id: '1740176866047'
+  alias: 'Light off after 5 mins '
+  description: ''
+  triggers:
+  - type: turned_on
+    device_id: 69a88b0ebecee09972bfdede51455d84
+    entity_id: 1a9e974489f0d9108e5a13e63c2a1d68
+    domain: switch
+    trigger: device
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  conditions: []
+  actions:
+  - type: turn_off
+    device_id: 69a88b0ebecee09972bfdede51455d84
+    entity_id: 1a9e974489f0d9108e5a13e63c2a1d68
+    domain: switch
+  mode: single
+- id: '1746202654323'
+  alias: 'Relock door after 5 mins '
+  description: ''
+  triggers:
+  - device_id: d1016b93293f3176c452af843896b1e1
+    domain: lock
+    entity_id: ac0e669dfb1bcd61bd7a2b8040be0332
+    type: unlocked
+    trigger: device
+    for:
+      hours: 0
+      minutes: 5
+      seconds: 0
+  conditions:
+  - type: is_not_open
+    condition: device
+    device_id: ed700bc7428ccd95f27cd16da15a80ec
+    entity_id: 2d111c0d8f4a612c5b94632e7035cfa5
+    domain: binary_sensor
+    for:
+      hours: 0
+      minutes: 6
+      seconds: 0
+  actions:
+  - device_id: d1016b93293f3176c452af843896b1e1
+    domain: lock
+    entity_id: ac0e669dfb1bcd61bd7a2b8040be0332
+    type: lock
+    metadata:
+      secondary: false
+  mode: single
+- id: '1746202750667'
+  alias: 'Unlock.door when Phil home '
+  description: ''
+  triggers:
+  - trigger: state
+    entity_id:
+    - device_tracker.pixel_8
+    from: not_home
+    to: home
+  conditions: []
+  actions:
+  - device_id: d1016b93293f3176c452af843896b1e1
+    domain: lock
+    entity_id: ac0e669dfb1bcd61bd7a2b8040be0332
+    type: unlock
+  mode: single
+- id: '1755678471773'
+  alias: Turn off garden lights at midnight
+  description: ''
+  triggers:
+  - trigger: time
+    at: 00:00:00
+  conditions: []
+  actions:
+  - action: switch.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: switch.garden_lights
+  mode: single
