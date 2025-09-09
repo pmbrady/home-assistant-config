@@ -146,21 +146,40 @@ entities:
       action: call-service
       service: shell_command.record_iptv
       
-# For status, CPU, and memory dynamically
-# template:
-#   - sensor:
-#       {% for container in ['radarr','qbittorrent','sabnzbd','sonarr','overseerr','uptime-kuma','immich_server','immich_postgres','immich_machine_learning','immich_redis','homepage'] %}
-#       - name: "Docker {{ container | capitalize }} Status"
-#         state: "{{ states('sensor.docker_' ~ container ~ '_status') }}"
-#         icon: mdi:server
+mqtt:
+  sensor:
+    # RADARR
+    - name: "Radarr Status"
+      state_topic: "docker/radarr/status"
+    - name: "Radarr CPU"
+      state_topic: "docker/radarr/cpu"
+      unit_of_measurement: "%"
+    - name: "Radarr Memory"
+      state_topic: "docker/radarr/mem"
 
-#       - name: "Docker {{ container | capitalize }} CPU"
-#         state: "{{ states('sensor.docker_' ~ container ~ '_cpu') }}"
-#         unit_of_measurement: "%"
-#         icon: mdi:cpu-64-bit
+    # QBITTORRENT
+    - name: "qBittorrent Status"
+      state_topic: "docker/qbittorrent/status"
+    - name: "qBittorrent CPU"
+      state_topic: "docker/qbittorrent/cpu"
+      unit_of_measurement: "%"
+    - name: "qBittorrent Memory"
+      state_topic: "docker/qbittorrent/mem"
 
-#       - name: "Docker {{ container | capitalize }} Memory"
-#         state: "{{ states('sensor.docker_' ~ container ~ '_mem') }}"
-#         unit_of_measurement: "MB"
-#         icon: mdi:memory
-#       {% endfor %}
+    # SONARR
+    - name: "Sonarr Status"
+      state_topic: "docker/sonarr/status"
+    - name: "Sonarr CPU"
+      state_topic: "docker/sonarr/cpu"
+      unit_of_measurement: "%"
+    - name: "Sonarr Memory"
+      state_topic: "docker/sonarr/mem"
+
+    # SABNZBD
+    - name: "SABnzbd Status"
+      state_topic: "docker/sabnzbd/status"
+    - name: "SABnzbd CPU"
+      state_topic: "docker/sabnzbd/cpu"
+      unit_of_measurement: "%"
+    - name: "SABnzbd Memory"
+      state_topic: "docker/sabnzbd/mem"
