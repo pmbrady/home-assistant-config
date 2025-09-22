@@ -709,23 +709,6 @@
     device_id: 25a8a14974bfffda0f65c78a65508d4e
     entity_id: 0d282c6eef2be3e15dd4a82369d0a126
     domain: switch
-- id: '1728990303212'
-  alias: Door bell battery charged
-  description: ''
-  triggers: []
-  conditions:
-  - type: is_battery_level
-    condition: device
-    device_id: a8aeaa65323c4dd8e708b0490a8995f1
-    entity_id: fed352eab970855517556dcbf28547c8
-    domain: sensor
-    above: 99
-  actions:
-  - device_id: fd5f6824702b91adcabe32c05ceb227a
-    domain: mobile_app
-    type: notify
-    message: Door bell battery charged
-  mode: single
 - id: '1729896246880'
   alias: TV and Fire Stick Sync
   description: Synchronize the state of the TV and Fire Stick
@@ -959,6 +942,7 @@
     entity_id: f36acd0e722e1e53e59faee39ab2c939
     domain: binary_sensor
     trigger: device
+    enabled: false
   actions:
   - target:
       device_id: 966c0062f743cbb3078c77f73bdfd8e4

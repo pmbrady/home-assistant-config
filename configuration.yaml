@@ -111,18 +111,10 @@ input_number:
     step: 1
     mode: box
 
-
 shell_command:
   record_iptv: >-
-    ssh -i /config/.ssh/id_rsa -o StrictHostKeyChecking=no docker@192.168.4.73 \
-    "/home/docker/record.sh \
-    {{ states('input_number.record_hour') | int }}
-    {{ states('input_number.record_minute') | int }}
-    {{ states('input_number.record_day_of_month') | int }}
-    {{ states('input_text.end_after') }}
-    '{{ states('input_text.record_filename') }}'
-    '{{ states('input_text.record_channel') }}'"
-    
+    ssh -i /config/.ssh/id_rsa -o StrictHostKeyChecking=no docker@192.168.4.73 "/home/docker/record.sh {{ states('input_number.record_hour') | int }} {{ states('input_number.record_minute') | int }} {{ states('input_number.record_day_of_month') | int }} {{ states('input_text.end_after') }} {{ states('input_text.record_filename') }} {{ states('input_text.record_channel') }}"
+
 type: button
 name: "Start IPTV Recording"
 icon: mdi:record-rec
@@ -145,6 +137,23 @@ entities:
     tap_action:
       action: call-service
       service: shell_command.record_iptv
+      
+recorder:
+  purge_keep_days: 5
+  commit_interval: 30
+  include:
+    entities:
+      - sensor.node_proxmox_cpu_used
+      - sensor.node_proxmox_memory_used_percentage
+      - sensor.node_proxmox_disk_used_percentage
+      - sensor.lxc_plex_102_cpu_used
+      - sensor.lxc_plex_102_memory_used_percentage
+      - sensor.qemu_haos_100_cpu_used
+      - sensor.qemu_haos_100_memory_used_percentage
+      - sensor.qemu_docker_103_cpu_used
+      - sensor.qemu_docker_103_memory_used_percentage
+      - sensor.lxc_pihole_101_cpu_used
+      - sensor.lxc_pihole_101_memory_used_percentage
       
 mqtt:
   sensor:
