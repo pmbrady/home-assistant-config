@@ -93,147 +93,119 @@
     domain: light
   mode: single
 - id: '1716986948187'
-  alias: K lights on
+  alias: K light on
   description: ''
   triggers:
-  - type: occupied
-    device_id: 252f917ea7d8a9b145b27754ef62306c
-    entity_id: a9312d4282dbe213f9e4228cae7106c0
-    domain: binary_sensor
-    trigger: device
-  conditions:
-  - condition: sun
-    after: sunset
-    after_offset: -00:60:00
-    before: sunrise
-    before_offset: +00:90:00
+  - trigger: state
+    entity_id:
+    - binary_sensor.sensor_occupancy
+    to: 'on'
+  conditions: []
   actions:
-  - type: turn_on
-    device_id: 97519c760052d95d0dd69c0f7c489259
-    entity_id: 8e975a0e3949e07f80b6d206bff2427c
-    domain: light
-    brightness_pct: 100
-  - type: turn_on
-    device_id: 860ff7ed576dda321f067cee874fade7
-    entity_id: 291a396a94b39afaf3a7dafd085bb4dc
-    domain: light
-    brightness_pct: 100
-  - type: turn_on
-    device_id: eb2966667fe90f97cec81c27c4fd5fea
-    entity_id: c8896ade5e999b5e59abc2d4fc442517
-    domain: light
-    brightness_pct: 100
+  - action: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      area_id: kitchen
   mode: single
 - id: '1716992272779'
   alias: K light off
   description: ''
-  trigger:
-  - type: not_occupied
-    platform: device
-    device_id: 252f917ea7d8a9b145b27754ef62306c
-    entity_id: a9312d4282dbe213f9e4228cae7106c0
-    domain: binary_sensor
-  condition: []
-  action:
-  - type: turn_off
-    device_id: 97519c760052d95d0dd69c0f7c489259
-    entity_id: 8e975a0e3949e07f80b6d206bff2427c
-    domain: light
-  - type: turn_off
-    device_id: 860ff7ed576dda321f067cee874fade7
-    entity_id: 291a396a94b39afaf3a7dafd085bb4dc
-    domain: light
-  - type: turn_off
-    device_id: eb2966667fe90f97cec81c27c4fd5fea
-    entity_id: c8896ade5e999b5e59abc2d4fc442517
-    domain: light
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.sensor_occupancy
+    to: 'off'
+  conditions: []
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      area_id: kitchen
   mode: single
 - id: '1718648360455'
   alias: Bathroom lights on PM
   description: ''
   triggers:
-  - type: motion
-    device_id: 20ae6c3d75ced13f50c9cc5f1b1c3e94
-    entity_id: d7b3292ef5620059ac3748fb7f5f477c
-    domain: binary_sensor
-    trigger: device
+  - trigger: state
+    entity_id:
+    - binary_sensor.hall_motion
+    to: 'on'
   conditions:
   - condition: sun
     after: sunset
     before_offset: +00:30:00
   actions:
-  - type: turn_on
-    device_id: b2cc99c8402353abd93ea74fd065d428
-    entity_id: 4a2b3cee19895962bba9e51fa7f04ad0
-    domain: light
-    brightness_pct: 100
-  - type: turn_on
-    device_id: eb9d1c9ee9e96ef7f308f89d8882fe79
-    entity_id: 1a09692a4a4e61ac1894029faaca0610
-    domain: light
-    brightness_pct: 100
+  - action: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.front_bulb_light
+  - action: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.back_bulb_light
   mode: single
 - id: '1718649134330'
   alias: Bathroom lights off
   description: ''
-  trigger:
-  - type: no_motion
-    platform: device
-    device_id: 20ae6c3d75ced13f50c9cc5f1b1c3e94
-    entity_id: d7b3292ef5620059ac3748fb7f5f477c
-    domain: binary_sensor
+  triggers:
+  - trigger: state
+    entity_id:
+    - binary_sensor.hall_motion
+    to: 'off'
   condition: []
-  action:
-  - type: turn_off
-    device_id: b2cc99c8402353abd93ea74fd065d428
-    entity_id: 4a2b3cee19895962bba9e51fa7f04ad0
-    domain: light
-  - type: turn_off
-    device_id: eb9d1c9ee9e96ef7f308f89d8882fe79
-    entity_id: 1a09692a4a4e61ac1894029faaca0610
-    domain: light
+  actions:
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.front_bulb_light
+  - action: light.turn_off
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.back_bulb_light
   mode: single
 - id: '1718649885911'
   alias: 'Bathroom motion battery low '
   description: ''
-  trigger:
-  - device_id: 5d14b1173aec9c544ed74cee99c5d338
+  triggers:
+  - device_id: 8a850dc790fb038c961102fe69c2ff18
     domain: zha
-    platform: device
     type: device_offline
     subtype: device_offline
-  condition: []
-  action:
-  - service: notify.mobile_app_pixel_8_pro
     metadata: {}
+    trigger: device
+  conditions: []
+  actions:
+  - metadata: {}
     data:
       message: Bathroom motion battery low
-  - service: todo.add_item
-    metadata: {}
+    action: notify.mobile_app_pixel_8_pro
+  - metadata: {}
     data:
       item: 'Change bathroom motion battery '
     target:
       entity_id: todo.tasks
+    action: todo.add_item
   mode: single
 - id: '1718827500194'
   alias: 'Living room no presence '
   description: ''
   triggers:
-  - type: not_occupied
-    device_id: 93dbba0a3133a6e0b5cfd7b1e1c344d0
-    entity_id: e1d86dfd2d70e0405e13f8ea7799d221
-    domain: binary_sensor
+  - trigger: state
+    entity_id:
+    - binary_sensor.presence_occupancy
+    to: 'off'
     for:
       hours: 0
       minutes: 30
       seconds: 0
-    trigger: device
   conditions: []
   actions:
-  - type: turn_off
-    device_id: afb67c9660b0a00f15838748991c8a4a
-    entity_id: c5a4bc085d9c6ef5c12ce3157cc132a7
-    domain: light
   - metadata: {}
     data: {}
     target:
@@ -649,26 +621,25 @@
   alias: Bathroom lights on AM
   description: ''
   triggers:
-  - type: motion
-    device_id: 20ae6c3d75ced13f50c9cc5f1b1c3e94
-    entity_id: d7b3292ef5620059ac3748fb7f5f477c
-    domain: binary_sensor
-    trigger: device
+  - trigger: state
+    entity_id:
+    - binary_sensor.hall_motion
+    to: 'on'
   conditions:
   - condition: sun
     before: sunrise
     after_offset: +00:30:00
   actions:
-  - type: turn_on
-    device_id: b2cc99c8402353abd93ea74fd065d428
-    entity_id: 4a2b3cee19895962bba9e51fa7f04ad0
-    domain: light
-    brightness_pct: 10
-  - type: turn_on
-    device_id: eb9d1c9ee9e96ef7f308f89d8882fe79
-    entity_id: 1a09692a4a4e61ac1894029faaca0610
-    domain: light
-    brightness_pct: 10
+  - action: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.front_bulb_light
+  - action: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      entity_id: light.back_bulb_light
   mode: single
 - id: '1728841537518'
   alias: Turn off Arabella tele on a school night
@@ -823,11 +794,10 @@
   alias: Hall lights on
   description: ''
   triggers:
-  - type: motion
-    device_id: 5d14b1173aec9c544ed74cee99c5d338
-    entity_id: 132a1198f0ede7ad8cd9ea6babbfde9c
-    domain: binary_sensor
-    trigger: device
+  - trigger: state
+    entity_id:
+    - binary_sensor.radiator_motion
+    to: 'on'
   conditions:
   - condition: sun
     after: sunset
@@ -835,21 +805,20 @@
     before: sunrise
     before_offset: +00:30:00
   actions:
-  - type: turn_on
-    device_id: 022cb32bd6a1b64f2fc10b75ea882fff
-    entity_id: 714e0a69cfd202d02cf08c6a52dc23b1
-    domain: light
-    brightness_pct: 10
+  - action: light.turn_on
+    metadata: {}
+    data: {}
+    target:
+      area_id: hall
   mode: single
 - id: '1729941084874'
   alias: Hall light off
   description: ''
   triggers:
-  - type: no_motion
-    device_id: 5d14b1173aec9c544ed74cee99c5d338
-    entity_id: 132a1198f0ede7ad8cd9ea6babbfde9c
-    domain: binary_sensor
-    trigger: device
+  - trigger: state
+    entity_id:
+    - binary_sensor.radiator_motion
+    to: 'off'
   conditions: []
   actions:
   - action: light.turn_off
@@ -937,12 +906,6 @@
       hours: 0
       minutes: 0
       seconds: 5
-  - type: turned_off
-    device_id: f546144343a5570403e1926942aad6c4
-    entity_id: f36acd0e722e1e53e59faee39ab2c939
-    domain: binary_sensor
-    trigger: device
-    enabled: false
   actions:
   - target:
       device_id: 966c0062f743cbb3078c77f73bdfd8e4
